@@ -11,7 +11,22 @@ we will pip freeze > requirements.txt so that all the downloads we did will be r
 
 ## Frontend
 
-- CD .. and command 'npx create-next-app@latest frontend, which will install all the packages and creates frontend/.
+- CD .. and command 'npx create-next-app@latest frontend, which will install all the packages and creates frontend/ and the next.js program.
+- For next.js we will use App Router. Router determines which page to show based on the URL.
+```
+localhost:3000 -> Home Page
+localhost:3000/login -> Login Page
+localhost:3000/chat -> Chat Page
+```
+Rather than manually writing routing code, Next.js generates routes from our folder structure.
+With App Router:
+```
+app/page.tsx -> / url
+app/login/page.tsx -> /login url
+app/chat/page.tsx -> /chat url
+app/flashcards/page.tsx -> /flashcards url
+```
+- It is called app router since the app/folder defines our app; Next.js looks inside app/ and builds the routing automatically.
 
 - Then install npm
 
