@@ -17,6 +17,8 @@ we will pip freeze > requirements.txt so that all the downloads we did will be r
 
 # Running Everything
 
+### Python Venv for backend dependencies and npm for frontend dependencies all in a single repo
+
 Open two terminals
 
 - Terminal 1
