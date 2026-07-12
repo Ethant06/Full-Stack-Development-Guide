@@ -34,3 +34,10 @@ bob = Person(name="Bob") - a real python object
 session.query(Person).filter(Person.name == 'Bob)
 ```
 - What manages it: Session
+
+
+# Overall
+
+- Core describes tables as Python Objects (Table, Column) and builds SQL statements via method chaining (.select(), .join(), .group_by()) - we still think in terms of tables and statements.
+
+- ORM maps Python classes to tables and each instance is a real row that you can manipulate with relationship() + back_populates to navigate joins as attributes instead of writing them.
