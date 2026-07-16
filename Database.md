@@ -17,4 +17,4 @@ This line is similar to what pgAdmin does - opening a network connection to the 
 
 - Postgres: the database lives inside a running server process, completely separate from any single application or folder. Then multiple different programs (pgAdmin, python app, another app, another laptop if configured for remote access) can all connect to that one database server at the same time over the network.
 
-- This is the reason why Postgres is built for real multi-user production apps, and SQLite generally isn't. Postgres running as an actual server is designed for many clients possible on different machines, all talking to a central database at once. Postgres can handle many concurrent connections such as if multiple users hit our API simultaneously from their browsers.
+- This is the reason why Postgres is built for real multi-user production apps, and SQLite generally isn't. Postgres running as an actual server is designed for many clients possible on different machines, all talking to a central database at once. Postgres can handle many concurrent connections such as if multiple users hit our API simultaneously from their browsers
