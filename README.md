@@ -3,13 +3,13 @@
 - Overall, we will create a frontend/ and a backend/ along with a README.md and a .gitignore
 as the main project structure
 
-## Backend
+# Backend
 - Create and CD into backend/ and create a virtual environment. Python -m venv .venv and this will create backend/.venv/. We need this virtual environment so that each project we make has its own packages rather than conflicting with other projects.
 
 - Activate the virtual environment and download dependencies/packages. After downloading,
 we will pip freeze > requirements.txt so that all the downloads we did will be recorded into requirements.txt file that we create. This allows it so that anyone can recreate our environment with 'pip install -r requirements.txt.
 
-## Frontend
+# Frontend
 
 - CD .. and command 'npx create-next-app@latest frontend, which will install all the packages and creates frontend/ and the next.js program.
 - For next.js we will use App Router. Router determines which page to show based on the URL.
@@ -89,3 +89,22 @@ Frontend (Node):
 - Axios (optional; fetch is built into modern browsers and Next.js)
 - shadcn/ui (component library)
 - Lucide React (icons)
+
+
+# Middleware
+
+- Middleware is code that runs before your endpoint and after your endpoint.
+- an example would be middleware for CORS (Cross-Origin Resource sharing). CORS is the communication between the browser and backend.
+
+
+### What is an Origin
+An origin consists of protocal + domain + port
+
+```
+http://localhost:8000
+http://localhost:3000
+```
+Even though both are localhost, 3000 != 8000 so they are different origins.
+- Often times in our project, we will have next.js be localhost:3000 while FastAPI would be localhost:8000 - different origins.
+- By default though JavaScript may only communicate with the same origin, so localhost:3000 can talk to localhost:3000 but localhost:3000 cannot with localhost:8000.
+- This is where middleware for CORS come in. By adding CORSmiddleware and allowing other different origins in the middleware, our browser will allow requests from the backend server since they trust it by allocation in the middleware.
