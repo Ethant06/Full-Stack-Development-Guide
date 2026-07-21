@@ -6,7 +6,7 @@ workout_routine_association = Table(
   Column('workout_id', Integer, ForeignKey('workouts.id')),
   Column('routine_id', Integer, ForeignKey('routines.id'))
 )
-This serves as the relationship and then later on we actually use orm to create the individual tables in the relationship.
+This serves as the relationship and then later on we actually use orm to create the individual tables in the relationship. This table has no model class of its own — it's just a plain SQL table with two foreign key columns. A row like (workout_id=3, routine_id=7) means "workout 3 is part of routine 7."
 ```
 class Workout(Base):
   __tablename__ = 'workouts'
@@ -24,3 +24,5 @@ class Routine(Base):
   description = Column(String, index=True)
   workouts = relationship('Workout', secondary=workout_routine_association, back_populates='routines')
 ```
+
+SQLAlchemy handles the join through the association table automatically — you never touch workout_routine_association directly in your app code; it's just plumbing.
