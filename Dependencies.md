@@ -17,7 +17,6 @@ from .depds import db_dependency, oauth2_bearer_dependency
 - Our route files stays focused on business logic rather than setup code.
 
 
-
 # Actual Dependencies Functions
 
 ### 1. (Password hashing) - pwdlib, passlib[argon2], and bcrypt - How to store passwords safely. pwdlib is newer and recommended
@@ -69,3 +68,122 @@ Use token step in OAuth2.
 
 ### 6. Server decodes/verifies the JWT signature to identify the user on every protected route
 This uses JWT verification or python-jose
+
+
+
+# DEPENDENCY IMPORT LIST
+
+##### 1. database.py - Connects to PostgreSQL
+Creates the database connection and the base class all models inherit from.
+```
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+```
+- create_engine - builds actual connection to PostgreSQL using our database_url
+- sessionmaker creates Session objects, where each one is a conversation with the DB
+- declarative_base creates a Base class that every table/model inherits from so SQLAlchemy knows to track it.
+
+##### 2. models.py - defines our database tables
+Job is to define python classes that map to actual PostgreSQL tables.
+```
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+from .database import Base
+```
+- Base - imported from our own database.py - every model class must inherit from it
+- relationship - Python side helper so that we can navigate related objects such as user workouts without writing joins manually.
+
+##### 3. schemas.py - defines request/response shapes (Pydantic)
+Define wht JSON data looks like coming in and going out of our API. These are contracts.
+```
+from pydantic import BaseModel
+```
+- BaseModel - base class every schema inherits from, which gives us automatic validation, serialization, and docs generation.
+
+##### 4. security.py - password hashing + JWT creation
+Job is to hash/verify passwords and create JWT tokens.
+```
+from datetime import datetime, timedelta, timezone
+from pwdlib import PasswordHash
+import jwt
+import os
+from dotenv import load_dotenv
+```
+- datetime, timedelta, timezone - used to calculate token expiration times.
+- PasswordHash - hashes and verifies passwords
+- jwt (from pyjwt) - encodes (creates) and decodes (reads/verifies) JWT tokens
+- load_dotenv, os - Pulls SECRET_KEY/ALGORITHM from our .env file
+
+##### 5. deps.py - shared dependencies for routes
+Centralizes things multiple routes need: DB session, current logged-in user, token parsing.
+
+```
+from typing import Annotated
+from sqlalchemy.orm import Session
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+import jwt
+from jwt import InvalidTokenError
+```
+- HTTPException, Status - used to raise proper HTTP errors with correct status codes.
+- OAuth2PasswordBearer - Extracts the token string from the Authorization: Bearer <token> header.
+- InvalidTokenError - The exception pyjwt raises when a token is invalid/expired - we catch this to reject bad tokens
+
+##### 6. auth.py
+The actual /register and /token(login) endpoints
+```
+from fastapi.security import OAuth2PasswordRequestForm
+from fastapi import APIRouter, HTTPException, status, Depends
+```
+- APIRouter - lets us group related routes into their own file and then plug them into main.py.
+- OAUTH2PasswordRequestForm - Parses the login form (username + password as form fields, not JSON)
+- Plus our own modules
+```
+from . import models, schemas, security
+from .deps import db_dependency
+```
+
+###### App Router Usage
+```
+# auth.py
+from fastapi import APIRouter
+
+router = APIRouter(prefix="/auth", tags=["auth"])
+
+@router.post("/register")   # this becomes POST /auth/register
+def register():
+    ...
+
+@router.post("/token")      # this becomes POST /auth/token
+def login():
+    ...
+```
+Then in main.py:
+```
+# main.py
+from fastapi import FastAPI
+from . import auth
+
+app = FastAPI()
+
+app.include_router(auth.router)
+```
+auth.router - go to the auth module (auth.py) and grab the variable named router.
+app.include_router - takes every route defined on that router and register them onto the real running app. Then POST/auth/register and POST/auth/token will behave exactly as if we written them directly in main.py with @app.post(), but the code statys modular and organized in auth.py.
+- This allows us to create a folder structure:
+```
+routers/
+├── auth.py       → router = APIRouter(prefix="/auth")
+├── workouts.py   → router = APIRouter(prefix="/workouts")
+└── routines.py   → router = APIRouter(prefix="/routines")
+```
+
+##### 7. main.py - entry point
+Creates the FastAPI app, wire up routers, and Create DB tables
+```
+from fastapi import FastAPI
+from .database import Base, engine
+from . import auth
+```
+FastAPI - core app object
+Base, Engine - used to run Base.metadata.create_all(bind=engine), creating tables in postgres if not exist yet
