@@ -20,15 +20,15 @@ from .depds import db_dependency, oauth2_bearer_dependency
 
 # Actual Dependencies Functions
 
-### 1. Bcrypt (Password hashing) - How to store passwords safely
+### 1. (Password hashing) - pwdlib, passlib[argon2], and bcrypt - How to store passwords safely. pwdlib is newer and recommended
 This solves a storage problem and has nothing to do with loggin in - purely about what sits in our database. Touches database and happens at signup and at moment of login verification.
 - When a user sign up, we never store their raw password.
-- Instead we run it through bcrypt which turns it into a scrambled irreversible string like a #9*asjnasjdn%$$asj.
+- Instead we run it through one of the password hashing library which turns it into a scrambled irreversible string like a #9*asjnasjdn%$$asj.
 - Then on login, we don't unhash the stored value, - we hash the password they just typed and check if it matches the irreversible string.
 - Hence then if our database ever leaks, attackers get useless scrambled strings.
 
 
-### 2. OAuth2 Password Flow - Process/Protocol for logging in (CONCEPTUAL BUT IS A SPEC AND HAS IMPLEMENTATION)
+### 2. OAuth2 Password Flow - Process/Protocol for logging in (CONCEPTUAL BUT IS A SPEC AND HAS IMPLEMENTATION with FastAPI support)
 This is the process/spec, not code or a technology. It describes a sequence of steps:
 - Cliet sends username + password to a token endpoint e.g. POST/auth/token
 - Server checks credentials (this is where bcrypt gets used to verify)
@@ -45,7 +45,7 @@ Every HTTP request isn't just a URL, it is a URL plus a bunch of extra metadata 
 ###### Overall in old-school web apps (session-based auth), the server would remember that the user say "John logged in" by storing a session ID somewhere. But with JWT and OAuth2 bearer tokens, the server remembers nothing between requests and each request holds everything such as the toen to prove the identity to the server. An analogy is you enter a building and they put a wristband on your wrist (client storing token.) Then everytime you walk through different door or areai n the buildings, the guards at the door just look at your wrist rather than ask for your ID again.
 
 
-### 3. JWT (JSON Web Token)
+### 3. JWT (JSON Web Token) - generation libraries like python-jose or PyJWT
 This is one common way to implement the "access token" that OAuth2 password flow says we need to issue.
 - JWT is a string with three parts (header, payload, signature) which contains data inside,
 is signed with our SECRET_KEY so the server can verify it was not tampered with, and is not encrypted by default.
@@ -56,16 +56,16 @@ is signed with our SECRET_KEY so the server can verify it was not tampered with,
 ### 1. User submits username and password
 
 ### 2. Server looks up the user, hashes the submitted password and compares to stored hash
-This step uses bcrypt
+bcrypt or passlib or pwdlib
 
-### 3. If it matches, server creates a token containing user information, signs it with SECRET_KEY.
+### 3. If it matches, server creates a JWT token containing user information, signs it with SECRET_KEY.
 This step creates a JWT
 
 ### 4. Server returns the JWT to the client.
 OAUTH2 password flow "issue access token" step
 
-### 5. Client sends that JWT on every future request in the Authorization header.
+### 5. Client uses and sends that JWT on every future request in the Authorization header.
 Use token step in OAuth2.
 
-### 6. Server decodes/verifies the JWT signature to identify the user
-This uses JWT verification.
+### 6. Server decodes/verifies the JWT signature to identify the user on every protected route
+This uses JWT verification or python-jose
