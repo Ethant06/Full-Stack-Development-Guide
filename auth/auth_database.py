@@ -14,4 +14,4 @@ def get_db():
   finally:
     db.close()
 
-Base = declarative_base( )
+Base = declarative_base()
