@@ -19,7 +19,7 @@ from .depds import db_dependency, oauth2_bearer_dependency
 
 # Actual Dependencies Functions
 
-### 1. (Password hashing) - pwdlib, passlib[argon2], and bcrypt - How to store passwords safely. pwdlib is newer and recommended
+### 1. (Password hashing) - pwdlib, passlib[argon2], and bcrypt - How to store passwords safely. pwdlib[argon2] is newer and recommended
 This solves a storage problem and has nothing to do with loggin in - purely about what sits in our database. Touches database and happens at signup and at moment of login verification.
 - When a user sign up, we never store their raw password.
 - Instead we run it through one of the password hashing library which turns it into a scrambled irreversible string like a #9*asjnasjdn%$$asj.
@@ -34,6 +34,11 @@ This is the process/spec, not code or a technology. It describes a sequence of s
 - If valid, server then issues an access token back to the client
 - The client stores that token and sends it in the authorization header on every future request.
 - Server checks header on protected routes to know who is asking everytime onward.
+
+Download for parsing form data required by OAuth2
+```
+pip install python-multipart
+```
 
 #### For password flow, what is a Header?
 Every HTTP request isn't just a URL, it is a URL plus a bunch of extra metadata called headers. Authorization: Bearer '<token>' is one header among many and this is mainly for proof of identity on every request.
