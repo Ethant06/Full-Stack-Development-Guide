@@ -25,6 +25,9 @@ This solves a storage problem and has nothing to do with loggin in - purely abou
 - Instead we run it through one of the password hashing library which turns it into a scrambled irreversible string like a #9*asjnasjdn%$$asj.
 - Then on login, we don't unhash the stored value, - we hash the password they just typed and check if it matches the irreversible string.
 - Hence then if our database ever leaks, attackers get useless scrambled strings.
+```
+from pwdlib import PasswordHash
+```
 
 
 ### 2. OAuth2 Password Flow - Process/Protocol for logging in (CONCEPTUAL BUT IS A SPEC AND HAS IMPLEMENTATION with FastAPI support)
