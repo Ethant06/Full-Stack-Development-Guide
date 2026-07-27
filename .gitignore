@@ -3,3 +3,6 @@ auth/.env
 
 
 .vscode/
+
+auth/__pycache__
+auth/__init__.py
