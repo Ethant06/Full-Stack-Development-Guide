@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 import jwt
 from datetime import datetime, timedelta, timezone
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jwt import PyJWTError
 
 load_dotenv()
@@ -23,7 +23,7 @@ def create_access_token(data: dict):
   to_encode = data.copy()
   expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
   to_encode.update({'exp': expire})
-  encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+  encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=[ALGORITHM])
   return encoded_jwt
 
 app = FastAPI()
@@ -101,3 +101,17 @@ def required_roles(allowed_roles: list[str]):
       raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permission")
     return current_user
   return role_checker
+
+
+@app.get("/profile")
+def profile(current_user: dict = Depends(required_roles(["user", "admin", "Engineer"]))):
+  return {"message": f"Profile of {current_user['username']} ({current_user['role']})"}
+
+
+@app.get("/user/dashboard")
+def user_dashboard(current_user: dict = Depends(required_roles(["user"]))):
+  return {"Message": "welcome User"}
+
+@app.get("/admin/dashboard")
+def user_dashboard(current_user: dict = Depends(required_roles(["admin"]))):
+  return {"Message": "welcome Admin"}
