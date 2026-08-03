@@ -76,6 +76,9 @@ Backend (Python):
 - Uvicorn
 - Pydantic
 - SQLAlchemy
+- PyJWT
+- pwdlib
+- psycopg
 - Alembic (database migrations)
 - python-dotenv (load environment variables)
 - LangChain or other AI frameworks (if needed)

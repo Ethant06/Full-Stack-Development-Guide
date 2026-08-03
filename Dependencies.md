@@ -186,6 +186,23 @@ routers/
 └── routines.py   → router = APIRouter(prefix="/routines")
 ```
 
+```
+router = APIRouter(prefix='/auth', tags=['auth'])
+
+@router.post("/token")
+def login_for_access_token(...):
+    ...
+
+@router.post("/")
+def register(...):
+    ...
+
+With the prefix, these actually become:
+
+POST /auth/token
+POST /auth/
+```
+
 ##### 7. main.py - entry point
 Creates the FastAPI app, wire up routers, and Create DB tables
 ```

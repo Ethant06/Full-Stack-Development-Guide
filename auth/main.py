@@ -17,7 +17,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 
 Base.metadata.create_all(bind=engine)
 
-
 # Helper function that takes user data
 def create_access_token(data: dict):
   to_encode = data.copy()
@@ -27,7 +26,6 @@ def create_access_token(data: dict):
   return encoded_jwt
 
 app = FastAPI()
-
 
 @app.post('/signup')
 def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
@@ -54,7 +52,6 @@ def register_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
   #return the value (except password)
   return {'id': new_user.id, 'username': new_user.username, 'email': new_user.email, 'role': new_user.role}
-
 
 # verifies that user successfully logins and creates a unique access token for them accordingly
 @app.post('/login')
@@ -87,6 +84,7 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
 
   except PyJWTError:
     raise credential_exception
+
   return {"username": username, "role": role}
 
 
