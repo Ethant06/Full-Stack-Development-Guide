@@ -64,6 +64,7 @@ export default function RoutinesPage() {
   return (
     <ProtectedRoute>
       <h1>Your Routines</h1>
+      Routines list goes here
     </ProtectedRoute>
   );
 }
