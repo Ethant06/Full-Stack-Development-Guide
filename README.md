@@ -92,6 +92,7 @@ Frontend (Node):
 - Axios Recommended
 - shadcn/ui (component library)
 - Lucide React (icons)
+- npm install -D stylelint stylelint-config-tailwindcss
 
 
 # Middleware
