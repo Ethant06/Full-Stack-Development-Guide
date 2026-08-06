@@ -89,7 +89,7 @@ Frontend (Node):
 - Next.js
 - React
 - Tailwind CSS
-- Axios (optional; fetch is built into modern browsers and Next.js)
+- Axios Recommended
 - shadcn/ui (component library)
 - Lucide React (icons)
 
