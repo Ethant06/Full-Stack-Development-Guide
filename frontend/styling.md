@@ -1,12 +1,12 @@
 # CSS Classes Create
 ```
-:root {
+:root { //creates values
   --workout-cardio: #d6455d;
   --workout-strength: #2f8f5b;
   --workout-yoga: #6a5acd;
 }
 
-@theme inline {
+@theme inline { // registers the css values
   --color-workout-cardio: var(--workout-cardio);
   --color-workout-strength: var(--workout-strength);
   --color-workout-yoga: var(--workout-yoga);
@@ -63,7 +63,7 @@ Because CSS custom properties follow normal cascade rules, the later/more-specif
 /* Actual rendered width = 200px, period. Content area shrinks to fit. */
 ```
 
-# Page Sizing
+# Page Sizing AND we can add styles to our own classes we define in react
 ```
 html,
 body {
