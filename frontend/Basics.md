@@ -12,12 +12,18 @@ return (
 
 # What is a component
 
-- A component is just a JavaScript function that returns JSX.
+- A component is just a JavaScript function that returns JSX which becomes UI.
 ```
 function Greeting() {
   return <h1>Hello!</h1>;
 }
 ```
+- 1. UI components (usually return visible JSX)
+NavBar, login form, workout list
+- 2. Wrapper / logic components (may return children or null)
+AuthProvider wraps the app and provides data
+ProtectedRoute either shows children or redirects
+###### A component is a function: take inputs (props/state) → optionally run logic → return JSX (or null). Export it only if another file needs it.
 
 # What is useState
 
@@ -134,3 +140,5 @@ export default function Login() {
 - <form onSubmit={handleSubmit}> - normally submitting an HTML form causes the whole browser page to reload. But we dont want that. We want to handle the submission with Javascript instead.
 - e.preventDefault() - this is the line that stops that default full-page-reload behavior, letting us handle the submit ourselves.
 - <button type="submit"> - clicking this button or pressing Enter in the form triggers the form's onSubmit.
+
+
