@@ -1,0 +1,3 @@
+# What is RAG
+
+Retrieval Augmented Generation is the most widely used technique for improving quality and accuracy of a LLM's response. A model starts off knowing only information from the public internet data it was trained on, so if we needed to answer questions from a proprietary data, such as our own documents - RAG lets the mdodel do this by providing the model access to that additional data. This lets an LLM answer questions with facts that it was not already trained on - ensuring the response is up-to-date and accurate.
