@@ -144,14 +144,14 @@ The main principle is the **more documents a word appears in, the less useful it
 
 We have two pieces of information:
 - TF: How important this word is within this particular document. Does this document talk about this word a lot?
-- IDF: How useful/informative this word across the entire collection of documents. Is this word unusual across the entire collection?
+- IDF: How useful/informative this word across the entire collection of documents. Is this word unusual across the entire collection? Is this useful for distinguishing relevant documents?
 ```
 **TFIDF = TF * IDF**
 ```
 
 # Step 4. Scoring Documents
 High TF-IDF: Word appears frequently but is extremely common
-Low TF-IDF: T he word is rare but only appears once
+Low TF-IDF: The word is rare but only appears once
 
 ###### What happens now when the query comes in?
 This is the entire retrieval process.

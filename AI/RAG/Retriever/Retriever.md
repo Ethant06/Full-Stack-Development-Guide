@@ -22,10 +22,10 @@ A retriever's job at high level sounds simple, all it does is find documents in 
 # techniques
 There are two main search techniques. In often times both follow an extra metadata filter on the documents returned from the searches.
 
-#### Keyword Search
+#### Keyword Search (Word match)
 Looks for documents containing the exact words found in the user prompt. Ensures sensitivity to exact words the user included in the prompt.
 
-#### Semantic Search
+#### Semantic Search (Similar Meanings)
 Looks for documents with similar meaning to the prompt. Semantic search gives more flexibility to find documents whose meaning is similar even without matching words.
 
 #### Metaadata filtering
