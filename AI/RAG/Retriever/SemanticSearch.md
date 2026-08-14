@@ -35,6 +35,6 @@ So d((2,3), (5,7)) = 5
 The lower the closer.
 
 # Framework
-1. Create the embedding: use embedding method to convert query and documents into vectors.
+1. Create the embedding: use embedding model to convert query and documents into vectors. Svae this so we can load pre-computed embeddings. We don't want to run the embedding model over all our documents everytime a user searches.
 2. Metric measurement: Use similarity metric to determine closeness of each document to our query.
 3. Soting: Sort documents by their similarity score and select top most relevant.
