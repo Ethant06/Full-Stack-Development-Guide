@@ -19,15 +19,30 @@ Temperature	Effect
 1.1–1.3	Flatter distribution → more variety, more creative output
 Too high	Nearly flat — all tokens roughly equal chance, risk of nonsense
 ```
+Consider the original token probability vector [0,6, 0.3, 0.1]:
+```
+Temperature = 0.5 (Low):
+Result vector: [0.77, 0.18, 0.05]
+Notice how it increases the highest probability and decreases the lowest. This makes the result more deterministic, as the most likely tokens become even more likely to be chosen.
+
+Temperature = 1 (Neutral):
+Result vector: [0.6, 0.3, 0.1]
+The probability distribution remains unchanged.
+
+Temperature = 2 (High):
+Result vector: [0.49, 0.27, 0.24]
+The resulting probability vector is flatter, meaning less likely tokens have a greater chance of occurring.
+```
 
 ## Sampling techniques (to cut off the "long tail" of nonsense tokens)
-##### Top-k sampling
+##### Top-k sampling Fixed Count
 Restrict choices to the k most likely tokens (e.g., top 5)
 Fixed pool size regardless of how confident/uncertain the model is
 
-##### Top-p sampling (nucleus sampling)
+##### Top-p sampling (nucleus sampling) Fixed Probability
 Restrict choices to the smallest set of tokens whose cumulative probability crosses a threshold (e.g., 85%)
 More dynamic than top-k: if the model is confident (few tokens dominate), the pool shrinks naturally; if uncertain (flat distribution), the pool expands to include more options
+- If top-p parameter is 0, then the answer will always be the same and be the most likely token.
 
 ## Word-level controls
 ##### Repetition penalty

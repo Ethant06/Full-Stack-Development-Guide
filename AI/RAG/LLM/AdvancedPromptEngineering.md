@@ -1,0 +1,81 @@
+Start simple and add advanced prompting techniques only when they actually improve your results
+
+# 1. In-context learning
+You give the LLM examples of good inputs and outputs so it learns the style/format you want.
+
+###### One-shot
+```
+Question: How do I reset my password?
+Answer: Go to Settings → Security → Reset Password.
+
+Question: How do I change my email?
+Answer:
+```
+
+###### Few-shot
+```
+Question: How do I reset my password?
+Answer: Go to Settings → Security → Reset Password.
+
+Question: How do I cancel my subscription?
+Answer: Go to Settings → Billing → Cancel Subscription.
+
+Question: How do I change my email?
+Answer:
+```
+- In RAG Instead of hardcoding examples, you can retrieve good examples from your database and put them into the prompt.
+- Useful when: You want consistent formatting, tone, or behavior.
+
+# 2. Reasoning Models
+These are desined to spend additional computation working through diffucult problems.
+- Useful for RAG when the model needs to determine which documents are relevant, combine information from multiple documents, solve complex problems. But these reasoning models come at higher costs so more tokens and slower responses.
+- Reasoning models, unlike normal models, often benefit more from clear goals and output requirements than from explicit telling them to think step by step
+- Reasoning models are LLM specifically designed to spend more computation working through difficult problems before giving the final answer.
+```
+OpenAI o-series — e.g. o3 and o4-mini
+Anthropic Claude reasoning-capable models — depending on the model/version
+Google Gemini reasoning models — such as Gemini models with explicit reasoning modes
+DeepSeek-R1 — a well-known reasoning-focused open model
+```
+- If we retrieve documents, a basic model might simply read the document and answer. A reasoning model may be better at
+```
+1. Determine which documents are relevant
+2. Compare conflicting information
+3. Combine information across documents
+4. Work through the problem
+5. Produce the final answer
+```
+
+# Context pruning
+removing unnecesarry information from the prompt.
+- Solution is keeping only the most recent messages rather than the entire conversation.
+- More advanced approach is to summarizr older messages which preserves important information while reducing tokens.
+
+# Pratical strategy
+
+Level 1
+```
+System prompt
++
+Retrieved context
++
+User question
+```
+
+Level 2 — If needed
+```
+Add:
+Conversation history
+```
+
+Level 3 — If needed
+```
+Add:
+In-context examples
+```
+
+Level 4 — For complex tasks
+```
+Consider:
+Reasoning model
+```
