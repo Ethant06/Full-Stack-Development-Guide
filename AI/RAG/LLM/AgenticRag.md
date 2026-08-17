@@ -115,3 +115,19 @@ User → Split ┤                          ├→ Synthesizer → Answer
              └→ LLM → Analyze Paper B ─┘
 ```
 Useful when you need to analyze multiple independent sources.
+
+
+# Agentic tools
+An agent can have access to tools such as:
+```
+🔎 Search tool → search a database or website
+🗄️ Database tool → query SQL/database
+🧮 Calculator/code interpreter → perform calculations
+🌐 API tool → interact with an external service
+📁 File tool → read or modify files
+📚 Vector database → retrieve relevant documents
+```
+
+**Why is this called "agentic"?**
+Because the system isn't just: Prompt → Answer
+Instead, it can: Understand → Decide → Use a tool → Observe result → Decide what to do next → Answer
