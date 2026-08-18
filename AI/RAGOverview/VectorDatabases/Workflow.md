@@ -20,5 +20,7 @@ Your scale is under ~5M vectors
 You want the fastest path from zero to production — operational simplicity of keeping vectors in your existing database is worth more than a latency edge from a separate system
 This is often the pragmatic pick for a first AI feature or learning project
 
+Hands-on: `Notebooks/pgvector.ipynb` and [PgvectorWalkthrough.md](./PgvectorWalkthrough.md) — embed docs with OpenAI, insert into Postgres, query with `<->`.
+
 # Weaviate
 This is strong for hybrid search use cases

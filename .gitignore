@@ -1,6 +1,6 @@
 .venv
 auth/.env
-
+.env
 
 .vscode/
 

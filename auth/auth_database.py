@@ -5,7 +5,7 @@ DATABASE_URL = "postgresql+psycopg://postgres:postgres@localhost:5432/workout_ap
 
 engine = create_engine(DATABASE_URL)
 
-SessionLocal = sessionmaker(autoflush=False, autocommit=False, bind=engine)
+SessionLocal = sessionmaker(autoflush=False, autocommit=False, bind=engine) # to work with python classes representing database tables.
 
 def get_db():
   db = SessionLocal()
