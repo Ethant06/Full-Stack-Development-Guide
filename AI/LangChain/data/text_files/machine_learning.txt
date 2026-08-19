@@ -1,0 +1,25 @@
+Machine Learning
+
+Machine learning is a branch of artificial intelligence that allows computers to learn patterns from data and use those patterns to make predictions or decisions. Instead of explicitly programming every rule, a machine learning model is trained using examples.
+
+A typical machine learning workflow begins with collecting data. The data may contain features that describe each example and a target variable that the model is trying to predict. For example, a dataset for predicting house prices might contain features such as square footage, number of bedrooms, location, and age of the house. The target variable would be the house's price.
+
+Machine learning problems are commonly divided into supervised learning, unsupervised learning, and reinforcement learning. In supervised learning, the model learns from labeled examples where the correct output is known. Regression and classification are two common types of supervised learning. Regression predicts continuous numerical values, while classification predicts categories.
+
+In unsupervised learning, the model works with data that does not have labeled target values. The goal is often to discover hidden patterns or structures within the data. Clustering is a common unsupervised learning technique. For example, a company might use clustering to group customers based on their purchasing behavior.
+
+A machine learning model contains parameters that are adjusted during training. The training process attempts to find parameter values that allow the model to make accurate predictions. A loss function measures how different the model's predictions are from the desired outputs. Optimization algorithms are then used to reduce the loss.
+
+One common optimization algorithm is gradient descent. Gradient descent calculates how the loss changes with respect to the model's parameters and adjusts the parameters in a direction that reduces the loss. The learning rate controls how large each parameter update is.
+
+After training, a model should be evaluated on data that was not used during training. A dataset is often divided into training, validation, and test sets. The training set is used to learn the model's parameters, the validation set can be used to select hyperparameters and compare models, and the test set provides an estimate of how well the final model generalizes to unseen data.
+
+Overfitting occurs when a model learns the training data too closely and performs poorly on new data. An overfit model may memorize patterns that are specific to the training examples rather than learning general relationships. Techniques such as regularization, data augmentation, early stopping, and cross-validation can help reduce overfitting.
+
+Python is widely used for machine learning. Libraries such as NumPy and pandas provide tools for working with numerical and tabular data. Scikit-learn provides implementations of many traditional machine learning algorithms, while PyTorch and TensorFlow are commonly used for deep learning.
+
+Deep learning is a subset of machine learning that uses neural networks with multiple layers. Neural networks can learn complex representations of data and are widely used for tasks such as image classification, natural language processing, speech recognition, and generative artificial intelligence.
+
+Machine learning is also an important component of retrieval-augmented generation systems. In a RAG system, embedding models transform text into numerical vectors that capture semantic information. These vectors can be stored in a vector database such as PostgreSQL with the pgvector extension. When a user asks a question, the question can be converted into an embedding and compared with stored document embeddings to retrieve relevant information.
+
+The quality of a machine learning system depends on many factors, including the quality and quantity of training data, the choice of model, feature representation, hyperparameters, and evaluation methodology. Building effective machine learning systems therefore requires both understanding the algorithms and carefully designing the data and evaluation process.

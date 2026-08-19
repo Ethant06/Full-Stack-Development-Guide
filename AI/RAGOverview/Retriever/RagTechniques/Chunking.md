@@ -23,7 +23,6 @@ Breaking long documents into smaller text pieces before embedding them, instead 
 
 # Advanced Chunking Techniques
 
-
 ###### Semantic Chunking
 Places sentences together in chunks if they have similar meaning.
 - For each sentence, it decides if it's similar enough to the previous sentences, and so belongs in the same chunk, or is different.
